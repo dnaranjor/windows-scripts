@@ -1,0 +1,22 @@
+/*
+Command Line Hack for: "Terminal Server Has Exceeded the Maximum Number of Allowed Connections"
+Fuente: http://www.howtogeek.com/howto/windows/command-line-hack-for-terminal-server-has-exceeded-the-maximum-number-of-allowed-connections/
+*/
+
+Para saber que sesiones estan conectadas al server:
+++++++++++++++++++++++++++++++++++++++++++++++++++
+query session /server:[servername o IP]
+
+Ejemplo de salida:
+
+C:\Users\advisorit>query session /server:SQL-W-SPP-34
+ NOMBRE DE SESIÓN  NOMBRE DE USUARIO        ID  ESTADO    TIPO   DISPOSITIVO
+                   clusterservices           0  Desc    rdpwd
+ rdp-tcp                                 65536  Escuchar  rdpwd
+                   fmonroyh                  1  Desc    rdpwd
+ console                                     4  Conn    wdcon
+                   clusterservices           2  Desc    rdpwd
+				   
+Para matar la sesion deseada:
+++++++++++++++++++++++++++++
+reset session [ID] /server:[servername o IP]
