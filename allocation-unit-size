@@ -1,0 +1,47 @@
+If you’re a SQL Server Pro you will know that the volumes the SQL log and datafiles are stored on should be formatted with a 64K 
+cluster size. This is a SQL Server Best practice as stated in this link:
+
+https://technet.microsoft.com/en-us/library/dd758814%28v=sql.100%29.aspx?f=255&MSPPError=-2147217396
+
+To find out what the allocation unit size is for a drive run the command below:
+
+fsutil fsinfo ntfsinfo [your drive]
+
+at command prompt, just like:
+
+C:\>fsutil fsinfo ntfsinfo E:
+NTFS Volume Serial Number :       0x0c76bbd176bbba32
+NTFS Version   :                  3.1
+LFS Version    :                  2.0
+Number Sectors :                  0x00000000013fe7ff
+Total Clusters :                  0x0000000000027fcf
+Free Clusters  :                  0x0000000000027d5b
+Total Reserved :                  0x0000000000000000
+Bytes Per Sector  :               512
+Bytes Per Physical Sector :       512
+Bytes Per Cluster :               65536
+Bytes Per FileRecord Segment    : 1024
+
+where: Bytes Per Cluster : 65536 reveals it is formatted at 64K.  You would have to run this command for every drive that
+you want to check. 
+
+If you are using PowerShell, you can check for all disks in the system:
+
+First:
+
+PS C:\Users\admininstrator> $wql = "SELECT Label, Blocksize, Name FROM Win32_Volume WHERE FileSystem='NTFS'"
+
+An then:
+
+PS C:\Users\admininstrator> Get-WmiObject -Query $wql -ComputerName '.' | Select-Object Label, Blocksize, Name
+
+The result:
+
+Label                                                                 Blocksize Name
+-----                                                                 --------- ----
+System Reserved                                                            4096 \\?\Volume{8d317c5e-239d-11e7-80b4-8
+BD                                                                        65536 M:\
+CAWA                                                                       4096 F:\
+OS                                                                         4096 C:\
+
+
