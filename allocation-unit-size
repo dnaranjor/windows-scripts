@@ -1,13 +1,16 @@
+
+/*
 If you’re a SQL Server Pro you will know that the volumes the SQL log and datafiles are stored on should be formatted with a 64K 
 cluster size. This is a SQL Server Best practice as stated in this link:
 
-https://technet.microsoft.com/en-us/library/dd758814%28v=sql.100%29.aspx?f=255&MSPPError=-2147217396
+Fuente: https://technet.microsoft.com/en-us/library/dd758814%28v=sql.100%29.aspx?f=255&MSPPError=-2147217396
+*/
 
-To find out what the allocation unit size is for a drive run the command below:
+Para chequear el allocation unit size para una unidad en particular, ejecutar:
 
 fsutil fsinfo ntfsinfo [your drive]
 
-at command prompt, just like:
+P.ej.: En el command prompt, hacer:
 
 C:\>fsutil fsinfo ntfsinfo E:
 NTFS Volume Serial Number :       0x0c76bbd176bbba32
@@ -22,20 +25,20 @@ Bytes Per Physical Sector :       512
 Bytes Per Cluster :               65536
 Bytes Per FileRecord Segment    : 1024
 
-where: Bytes Per Cluster : 65536 reveals it is formatted at 64K.  You would have to run this command for every drive that
-you want to check. 
+buscar: Bytes Per Cluster : 65536, lo que revela que esta formateado a 64K.  
+Debej ejecutarse el comando por cada disco que se desee chequear.
 
-If you are using PowerShell, you can check for all disks in the system:
+Si se esta usando PowerShell, es posible chequear todos los discos en el sistema:
 
-First:
+Primero:
 
 PS C:\Users\admininstrator> $wql = "SELECT Label, Blocksize, Name FROM Win32_Volume WHERE FileSystem='NTFS'"
 
-An then:
+y luego:
 
 PS C:\Users\admininstrator> Get-WmiObject -Query $wql -ComputerName '.' | Select-Object Label, Blocksize, Name
 
-The result:
+El resultado:
 
 Label                                                                 Blocksize Name
 -----                                                                 --------- ----
@@ -43,5 +46,3 @@ System Reserved                                                            4096 
 BD                                                                        65536 M:\
 CAWA                                                                       4096 F:\
 OS                                                                         4096 C:\
-
-
