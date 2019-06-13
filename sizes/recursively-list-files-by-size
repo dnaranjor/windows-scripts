@@ -1,5 +1,34 @@
 # In powershell, do:
 # Source: https://devblogs.microsoft.com/scripting/list-files-in-folders-and-subfolders-with-powershell/
 
-Get-ChildItem -Path E:\music\Santana -Recurse -File | sort length –Descending
+Get-ChildItem -Path C:\Users\Dennis.Naranjo -Recurse -File | sort length –Descending
 
+# Output example:
+
+    Directory: C:\Users\Dennis.Naranjo\Desktop
+
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+-a---         4/11/2019   4:29 PM       2244 Google Chrome.lnk
+
+
+    Directory: C:\Users\Dennis.Naranjo\Links
+
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+-a---         4/11/2019   4:29 PM        922 Downloads.lnk
+-a---         4/11/2019   4:29 PM        469 Desktop.lnk
+-a---         4/11/2019   4:29 PM        363 RecentPlaces.lnk
+
+
+    Directory: C:\Users\Dennis.Naranjo\Favorites
+
+
+Mode                LastWriteTime     Length Name
+----                -------------     ------ ----
+-a---         4/11/2019   4:29 PM        208 Bing.url
+
+
+PS C:\Users\Dennis.Naranjo>
