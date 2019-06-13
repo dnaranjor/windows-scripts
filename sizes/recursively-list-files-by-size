@@ -1,0 +1,5 @@
+# In powershell, do:
+# Source: https://devblogs.microsoft.com/scripting/list-files-in-folders-and-subfolders-with-powershell/
+
+Get-ChildItem -Path E:\music\Santana -Recurse -File | sort length –Descending
+
