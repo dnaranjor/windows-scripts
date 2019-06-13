@@ -32,3 +32,7 @@ Mode                LastWriteTime     Length Name
 
 
 PS C:\Users\Dennis.Naranjo>
+
+# With file sizes in human-readable format:
+
+Get-ChildItem -Path . -Recurse | Select-Object Name, @{Name="MB";Expression={"{0:F2}" -f ($_.length/1MB)}} | sort length –Descending
